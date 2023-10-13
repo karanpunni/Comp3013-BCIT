@@ -6,10 +6,10 @@ import { MdDateRange } from "react-icons/md";
 
 
 
-import React from 'react';
-import { format } from 'date-fns';
-import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/dist/style.css';
+// import React from 'react';
+// import { format } from 'date-fns';
+// import { DayPicker } from 'react-day-picker';
+// import 'react-day-picker/dist/style.css';
 
 type Pros={
   value:string;
@@ -19,13 +19,13 @@ type Pros={
 
 }
 export function Header({updateValue,value,btnclicked}:Pros) {
-  const [selected, setSelected] = React.useState<Date>();
-  const [showDate, setShowDate] = React.useState(false)
+//   const [selected, setSelected] = React.useState<Date>();
+//   const [showDate, setShowDate] = React.useState(false)
 
-  let footer = <p>Please pick a day.</p>;
-  if (selected) {
-    footer = <p>You picked {format(selected, 'PP')}.</p>;
-  }
+//   let footer = <p>Please pick a day.</p>;
+//   if (selected) {
+//     footer = <p>You picked {format(selected, 'PP')}.</p>;
+//   }
 
   const changeHandler = (e:any)=>{
     updateValue(e.target.value)
@@ -37,16 +37,16 @@ export function Header({updateValue,value,btnclicked}:Pros) {
       <h1>{uppercase("bcit")} Assignment Tracker</h1>
       <form className={styles.newAssignmentForm} onSubmit={(e)=>btnclicked(e)}>
         <input placeholder="Add a new assignment" onChange={changeHandler} type="text" value={value} />
-        <button onClick={(e)=>{ e.preventDefault(); setShowDate(true)}}>  <MdDateRange size={40} /></button>
-
+        {/* <button onClick={(e)=>{ e.preventDefault(); setShowDate(true)}}>  <MdDateRange size={40} />{`${selected}`}</button>
+    
         { showDate === true ? <DayPicker
           mode="single"
           selected={selected}
           onSelect={setSelected}
           footer={footer}
         /> : null 
-        }
-        
+        } */}
+       
 
         <button  disabled={!value} style={!value?{background:"grey",cursor:"not-allowed"}:{background:"#8284fa"}}>
           Create <AiOutlinePlusCircle size={20} />

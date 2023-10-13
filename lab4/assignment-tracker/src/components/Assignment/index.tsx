@@ -43,7 +43,7 @@ export function Assignment({datalist, updatedata, set, count}:Pros) {
     
     {datalist.map((element, i) => 
     
-      <div className={styles.assignment}>
+      <div key={i} className={styles.assignment}>
 
         <button className={styles.checkContainer} onClick={()=>{aa(element,i)}}>
           {element.iscomplete?<IoIosCheckmarkCircle size={30} /> :<div /> }
