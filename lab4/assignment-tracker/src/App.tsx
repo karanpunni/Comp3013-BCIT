@@ -10,7 +10,8 @@ function App() {
 
  
 
-  function btnclicked(){
+  function btnclicked(e:React.SyntheticEvent){
+    e.preventDefault();
     setassidata([...assidata,{ id: (Nxtid++), name: value, iscomplete:false }]);
     setvalue("")
   }
