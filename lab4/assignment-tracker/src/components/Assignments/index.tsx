@@ -3,7 +3,7 @@ import styles from "./assignments.module.css";
 import { useState } from "react";
 
 type Pros={
-  data:{id:number,name:string, iscomplete:boolean}[];
+  data:{id:number,name:string, iscomplete:boolean, duein: number}[];
   updatedata:any
 }
 export function Assignments({data, updatedata}:Pros) {

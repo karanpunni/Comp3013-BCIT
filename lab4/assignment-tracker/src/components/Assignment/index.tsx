@@ -4,7 +4,7 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 
 
 type Pros={
-  datalist:{id:number,name:string, iscomplete:boolean}[];
+  datalist:{id:number,name:string, iscomplete:boolean, duein: number}[];
   updatedata:any;
   set:any;
   count:number;
@@ -21,7 +21,7 @@ export function Assignment({datalist, updatedata, set, count}:Pros) {
    
     if (a){
       const newData=[
-        ...datalist.slice(0,i),{id: i, name: element.name, iscomplete:false},...datalist.slice(i+1)
+        ...datalist.slice(0,i),{id: i, name: element.name, iscomplete:false, duein:element.duein},...datalist.slice(i+1)
       ]
       let tempcount = count-1;
       set(tempcount)
@@ -30,7 +30,7 @@ export function Assignment({datalist, updatedata, set, count}:Pros) {
     }
     else{
       const newData=[
-        ...datalist.slice(0,i),{id: i, name: element.name, iscomplete:true},...datalist.slice(i+1)
+        ...datalist.slice(0,i),{id: i, name: element.name, iscomplete:true, duein:element.duein},...datalist.slice(i+1)
       ]
       let tempcount = count+1;
       set(tempcount)
@@ -50,7 +50,8 @@ export function Assignment({datalist, updatedata, set, count}:Pros) {
            
         </button>
         
-        <p className={`${element.iscomplete?styles.textCompleted:""}`}>{element.name}</p>
+        <p className={`${element.iscomplete?styles.textCompleted:""}`}>{element.name} 
+        <span className={`${element.duein>1?styles.due:styles.duesoon}`}>{`${element.duein>=0?`${element.duein<2?`${element.duein==0?"Due: Today":"Due: Tommorow"}`:"Due In: " + element.duein+" Days"}`:"Past Due"}`}</span></p>
 
         <button className={styles.deleteButton} onClick={()=>{
           
