@@ -27,7 +27,13 @@ export function Header({updateValue,value,btnclicked, setDue}:Pros) {
   if (selected) {
     
     footer = <p>You picked {format(selected, 'PP')}.</p>;
+   
   }
+
+  // const handleSelect = (d:any) => {
+  //   setSelected(d);
+  //   setShowDate(false);
+  // }
   
   const changeHandler = (e:any)=>{
     updateValue(e.target.value)
