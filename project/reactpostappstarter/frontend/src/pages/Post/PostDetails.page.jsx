@@ -1,6 +1,7 @@
 import DOMAIN from "../../services/endpoint";
 import axios from "axios";
 import { useLoaderData } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import {
   Card,
@@ -12,43 +13,39 @@ import {
   ActionIcon,
 } from "@mantine/core";
 import classes from "./PostDetails.module.css";
-
-
+import useBoundStore from "../../store/Store";
 
 function PostDetailsPage() {
+  const { user } = useBoundStore((state) => state);
   const postsDetail = useLoaderData();
 
   const mockdata = {
-    image:postsDetail.image,
-    author: postsDetail.id,
-    title: postsDetail.title,
-    content: postsDetail.content,
-    category: postsDetail.category,
+    image: postsDetail[0].image,
+    author: postsDetail[1].email,
+    title: postsDetail[0].title,
+    content: postsDetail[0].content,
+    category: postsDetail[0].category,
   };
-
 
   const { image, author, title, content, category } = mockdata;
   return (
-    
-    
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: "50px",
-          padding:"50px"
-        }}
-      >
-        <Card withBorder radius="md" p="md" className={classes.card}>
-          <Card.Section>
-            <Image src={image} alt={title} />
-          </Card.Section>
-        <div
-        style={{padding:"20px"}}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: "50px",
+        padding: "50px",
+      }}
+    >
+      <Card withBorder radius="md" p="md" className={classes.card}>
+        <Card.Section>
+          <Image src={image} alt={title} />
+        </Card.Section>
+        <div style={{ padding: "20px" }}>
           <Card.Section className={classes.section} mt="md">
             <Group justify="apart">
-              <Text fz="lg" fw={500} style={{fontSize:"30px"}}>
+              <Text fz="lg" fw={500} style={{ fontSize: "30px" }}>
                 {title}
               </Text>
               <Badge size="sm" variant="light">
@@ -67,19 +64,23 @@ function PostDetailsPage() {
             <Group gap={7} mt={5}>
               {category}
             </Group>
+
+            <Group mt="xs">
+              {user.id == postsDetail[0].id ? (
+                <NavLink to={"/posts/"+(postsDetail[0].id)+"/edit"}>
+                <Button radius="md" style={{ flex: 1 }}>
+                  Edit
+                </Button>
+              </NavLink>                
+              ) : (
+                ""
+              )}
+            </Group>
           </Card.Section>
-          {/* <Group mt="xs"> */}
-          {/* <Button radius="md" style={{ flex: 1 }}> */}
-          {/* /     Show details */}
-          {/* </Button> */}
-          {/* <ActionIcon variant="default" radius="md" size={36}> */}
-          {/* <IconHeart className={classes.like} stroke={1.5} /> */}
-          {/* </ActionIcon> */}
-          {/* </Group> */}
-          </div>
-        </Card>
-      </div>
-    
+        
+        </div>
+      </Card>
+    </div>
   );
 }
 

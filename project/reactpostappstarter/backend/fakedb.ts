@@ -36,9 +36,15 @@ export const addPost = (post: any) => {
   //  *     The request body contains the title, category, and image,
   //  *     but the addPost function needs to add a unique id
   //  *     and the id of the currently logged in user to the post.
-  post.id = 3;
-  post.userId = 2;
-  posts.push(post);
+  let newdata={
+    id: posts.length+1,
+    title: post[0].title,
+    category: post[0].category,
+    content: post[0].content,
+    image:post[0].image,
+    userId: post[1].id,
+  }
+  posts.push(newdata);
 };
 
 export const verifyUser = (email: string, password: string) => {

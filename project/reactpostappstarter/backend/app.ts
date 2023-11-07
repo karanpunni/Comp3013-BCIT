@@ -44,16 +44,69 @@ app.post("/api/user/validation", (req, res) => {
 
 app.get("/api/posts", async (req, res) => {
   // Sleep delay goes here
+  // sleep(5000)
   res.json(posts);
 });
 
 // ⭐️ TODO: Implement this yourself
 app.get("/api/posts/:id", (req, res) => {
-  const id = req.params.id;
- 
+  const id = parseInt(req.params.id);
+  posts.forEach((a)=>{
+    if(a.id==id){
+      let user= findUserById(a.userId)
+      
+      res.json([a,user])
+    }
+  })
   // The line below should be fixed.
-  res.json(posts[1]);
+
 });
+
+
+
+app.get("/api/posts/:id/edit", (req, res) => {
+  const id = parseInt(req.params.id);
+  posts.forEach((a)=>{
+    if(a.id==id){
+      res.json(a)
+    }
+  })
+  // The line below should be fixed.
+
+});
+
+app.post("/api/update",(req,res)=>{
+  let data=req.body
+  posts.forEach((a)=>{
+    if(a.id==data.id){
+      a.title=data.title
+      a.category=data.category
+      a.image=data.image
+      a.content=data.content
+      
+     
+    }
+  })
+  res.json(data)
+  
+//  console.log(posts)
+  
+ 
+
+})
+
+app.post("/api/posts",(req,res)=>{
+  let data=req.body
+  addPost(data)
+
+  console.log(posts)
+  res.json(data)
+  
+
+  
+ 
+
+})
 
 /**
  * Problems with this:

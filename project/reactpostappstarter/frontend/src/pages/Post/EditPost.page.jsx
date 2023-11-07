@@ -3,23 +3,28 @@ import DOMAIN from "../../services/endpoint";
 import axios from "axios";
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
-import useBoundStore from "../../store/Store";
+import { useLoaderData } from "react-router-dom";
 
-function CreatePostPage() {
-  const { user } = useBoundStore((state) => state);
+function EditPostPage() {
   const navigate = useNavigate();
+  const postsDetail = useLoaderData();
   const form = useForm({
     initialValues: {
-      title: "",
-      category: "",
-      image: "",
-      content: "",
+      title: postsDetail.title,
+      category: postsDetail.category,
+      image: postsDetail.image,
+      content: postsDetail.content,
+      id:postsDetail.id
     },
   });
 
+
+
+
+
+
   const handleSubmit = async (values) => {
-    
-    const res = await axios.post(`${DOMAIN}/api/posts`, [values,user]);
+    const res = await axios.post(`${DOMAIN}/api/update`, values);
     navigate("/posts");
     if (res?.data.success) {
       navigate("/posts");
@@ -28,7 +33,14 @@ function CreatePostPage() {
 
   return (
     <Box maw={300} mx="auto">
+     
       <form onSubmit={form.onSubmit(handleSubmit)}>
+      <TextInput 
+          type="hidden"
+          
+          placeholder="Enter a Id"
+          {...form.getInputProps("id")}
+        />
         <TextInput
           label="Title"
           placeholder="Enter a Title"
@@ -60,4 +72,11 @@ function CreatePostPage() {
   );
 }
 
-export default CreatePostPage;
+export const EditDetailsLoader = async ({ params }) => {
+  const res = await axios.get(`${DOMAIN}/api/posts/${params.id}/edit`);
+  return res.data;
+};
+
+
+
+export default EditPostPage;
