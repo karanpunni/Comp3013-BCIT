@@ -18,11 +18,11 @@ function CreatePostPage() {
   });
 
   const handleSubmit = async (values) => {
-    
-    const res = await axios.post(`${DOMAIN}/api/posts`, [values,user]);
-    navigate("/posts");
-    if (res?.data.success) {
+    try {
+      const res = await axios.post(`${DOMAIN}/api/posts`, [values,user]);
       navigate("/posts");
+    } catch (error) {
+      console.log(error)
     }
   };
 
